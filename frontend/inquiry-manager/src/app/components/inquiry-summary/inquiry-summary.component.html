@@ -1,0 +1,24 @@
+<div class="card">
+  @if (loading) { <p class="state-msg"><span class="spinner"></span></p> }
+  @else if (error) { <p class="state-msg error">שגיאה בטעינת נתונים מסכמים</p> }
+  @else if (summary) {
+    <div class="summary-cards">
+      <div class="summary-card total">
+        <span class="label">סה"כ פניות</span>
+        <span class="value">{{ summary.total }}</span>
+      </div>
+      @for (entry of statusEntries; track entry[0]) {
+        <div class="summary-card">
+          <span class="label">{{ translateStatus(entry[0]) }}</span>
+          <span class="value">{{ entry[1] }}</span>
+        </div>
+      }
+      @for (entry of priorityEntries; track entry[0]) {
+        <div class="summary-card">
+          <span class="label">{{ translatePriority(entry[0]) }}</span>
+          <span class="value">{{ entry[1] }}</span>
+        </div>
+      }
+    </div>
+  }
+</div>

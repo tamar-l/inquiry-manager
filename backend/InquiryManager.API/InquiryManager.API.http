@@ -1,0 +1,6 @@
+@InquiryManager.API_HostAddress = http://localhost:5159
+
+GET {{InquiryManager.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

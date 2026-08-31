@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/backend/">
+    <Project Path="../../source/repos/inquiry-manager/InquiryManager.Tests/InquiryManager.Tests.csproj" />
+    <Project Path="backend/InquiryManager.API/InquiryManager.API.csproj" />
+  </Folder>
+</Solution>

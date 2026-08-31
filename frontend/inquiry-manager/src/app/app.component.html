@@ -1,0 +1,15 @@
+<header class="app-header">
+  <div class="header-right">
+    <div class="gov-logo">
+      <img src="logo.png" alt="המשרד להגנת הסביבה" />
+    </div>
+    <div class="header-text">
+      <span class="ministry-name">המשרד להגנת הסביבה</span>
+      <span class="system-name">מערכת ניהול פניות</span>
+    </div>
+  </div>
+</header>
+<div class="container">
+  <app-inquiry-summary #summary />
+  <app-inquiry-list (statusUpdated)="summary.load()" />
+</div>

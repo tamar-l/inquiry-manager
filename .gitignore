@@ -1,0 +1,45 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.db
+*.db-shm
+*.db-wal
+
+# Node / Angular
+node_modules/
+npm-debug.log
+yarn-error.log
+dist/
+tmp/
+out-tsc/
+bazel-out/
+.angular/
+.sass-cache/
+/coverage
+/typings
+/connect.lock
+/libpeerconnection.log
+testem.log
+
+# IDEs
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/
+
+# System
+.DS_Store
+Thumbs.db
+*.log

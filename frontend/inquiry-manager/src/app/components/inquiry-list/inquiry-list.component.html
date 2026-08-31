@@ -1,0 +1,63 @@
+<div class="card">
+  <div class="filters">
+    <input placeholder="חיפוש..." [(ngModel)]="search" (ngModelChange)="onSearchChange($event)" />
+    <select [(ngModel)]="params.status" (ngModelChange)="onFilterChange()">
+      <option [ngValue]="null">כל הסטטוסים</option>
+      @for (s of statuses; track s.value) { <option [ngValue]="s.value">{{ s.label }}</option> }
+    </select>
+    <select [(ngModel)]="params.priority" (ngModelChange)="onFilterChange()">
+      <option [ngValue]="null">כל העדיפויות</option>
+      @for (p of priorities; track p.value) { <option [ngValue]="p.value">{{ p.label }}</option> }
+    </select>
+  </div>
+
+  @if (loading) { <p class="state-msg"><span class="spinner"></span></p> }
+  @else if (error) { <p class="state-msg error">שגיאה בטעינת הנתונים</p> }
+  @else if (result?.totalCount === 0) { <p class="state-msg">לא נמצאו תוצאות</p> }
+  @else {
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            @for (col of columns; track col.key) {
+              <th (click)="onSort(col.key)" style="cursor:pointer">
+                {{ col.label }} {{ params.sortBy === col.key ? (params.sortDesc ? '▼' : '▲') : '' }}
+              </th>
+            }
+            <th>עדכון סטטוס</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (inquiry of result?.items; track inquiry.id) {
+            <tr>
+              <td>{{ inquiry.id }}</td>
+              <td>{{ inquiry.title }}</td>
+              <td>{{ inquiry.organizationName }}</td>
+              <td><span class="status-dot dot-{{inquiry.status}}"></span>{{ statusLabel(inquiry.status) }}</td>
+              <td>{{ priorityLabel(inquiry.priority) }}</td>
+              <td>{{ inquiry.createdAt | date:'dd/MM/yyyy' }}</td>
+              <td>
+                <button class="btn-update" (click)="openModal(inquiry)">עדכן</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <div class="pagination">
+      <button (click)="onPageChange(params.page! - 1)" [disabled]="params.page === 1">הקודם</button>
+      <span>עמוד {{ params.page }} מתוך {{ totalPages }}</span>
+      <button (click)="onPageChange(params.page! + 1)" [disabled]="params.page === totalPages">הבא</button>
+    </div>
+  }
+</div>
+
+@if (selectedInquiry) {
+  <app-update-status-modal
+    [inquiry]="selectedInquiry"
+    [loading]="modalLoading"
+    [error]="modalError"
+    (confirm)="onConfirmStatus($event)"
+    (cancel)="selectedInquiry = null"
+  />
+}
